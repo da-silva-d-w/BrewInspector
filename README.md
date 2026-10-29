@@ -1,6 +1,6 @@
 # BrewInspector — Análise de Dados de Receitas Cervejeiras
 
-🔗 **Demo online:** [API no Render (Swagger)](https://etl-e-analise-de-dados-cervejeiros.onrender.com/docs) — no plano gratuito a API "dorme" quando ocioso, então a primeira requisição pode levar cerca de um minuto.
+🔗 **Demo online:** [API no Render (Swagger)](https://brewinspector.onrender.com/docs) — no plano gratuito a API "dorme" quando ocioso, então a primeira requisição pode levar cerca de um minuto.
 
 Projeto de portfólio que integra coleta e tratamento de dados (ETL), modelagem relacional, análise exploratória e consultas SQL a uma API REST desenvolvida com FastAPI, utilizando dados do catálogo Punk API / DIY Dog.
 
@@ -65,10 +65,11 @@ Durante a análise, dois tipos de valor atípico foram encontrados e tratados de
 
 ## API de consulta (FastAPI)
 
-Disponível online (Render): https://etl-e-analise-de-dados-cervejeiros.onrender.com/docs
+Disponível online (Render): [https://brewinspector.onrender.com/docs](https://brewinspector.onrender.com/docs)
 
 O arquivo `main.py` expõe os dados do banco PostgreSQL por uma API REST, com parâmetros de ordenação (menu suspenso), quantidade de resultados e filtros. Endpoints:
 
+- `/cervejas/busca` — pesquisa cervejas por nome ou trecho do nome
 - `/cervejas/{id}` — dados de uma cerveja
 - `/teor_alcool` — ranking por teor alcoólico
 - `/teor_amargor` — ranking por IBU (técnico ou percebido)
