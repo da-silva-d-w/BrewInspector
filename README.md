@@ -1,8 +1,8 @@
 # BrewInspector — Análise de Dados de Receitas Cervejeiras
 
-Projeto de portfólio que integra coleta e tratamento de dados (ETL), modelagem relacional, análise exploratória e consultas SQL a uma API REST desenvolvida com FastAPI, utilizando dados do catálogo Punk API / DIY Dog.
-
 🔗 **Demo online:** [API no Render (Swagger)](https://etl-e-analise-de-dados-cervejeiros.onrender.com/docs) — no plano gratuito a API "dorme" quando ocioso, então a primeira requisição pode levar cerca de um minuto.
+
+Projeto de portfólio que integra coleta e tratamento de dados (ETL), modelagem relacional, análise exploratória e consultas SQL a uma API REST desenvolvida com FastAPI, utilizando dados do catálogo Punk API / DIY Dog.
 
 
 ## Fonte dos dados
