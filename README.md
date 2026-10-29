@@ -1,8 +1,9 @@
-# ETL de Dados Cervejeiros — Punk API / DIY Dog
+# BrewInspector — Análise de Dados de Receitas Cervejeiras
 
 🔗 **Demo online:** [API no Render (Swagger)](https://etl-e-analise-de-dados-cervejeiros.onrender.com/docs) — no plano gratuito a API "dorme" quando ocioso, então a primeira requisição pode levar cerca de um minuto.
 
-Pipeline de ETL (Extract, Transform, Load) e análise de dados construído em Python, SQL e uma API em FastAPI, usando dados reais e abertos de receitas de cerveja. Projeto pessoal de portfólio, com foco em modelagem relacional, qualidade de dado e SQL.
+Projeto de portfólio que integra coleta e tratamento de dados (ETL), modelagem relacional, análise exploratória e consultas SQL a uma API REST desenvolvida com FastAPI, utilizando dados do catálogo Punk API / DIY Dog.
+
 
 ## Fonte dos dados
 
@@ -46,7 +47,7 @@ Durante a análise, dois tipos de valor atípico foram encontrados e tratados de
 - **Função customizada reutilizável dentro do SQL**: registrada em Python (`conn.create_function`) na versão SQLite; implementada como função nativa `PL/pgSQL` (`CREATE OR REPLACE FUNCTION`) na versão PostgreSQL
 - **Auditoria de sessão**: log automático de todo comando SQL executado, com timestamp, sem necessidade de instrumentar cada célula manualmente — via `sqlite3.trace_callback` na versão SQLite; via uma classe de cursor customizada (`cursor_factory`) na versão PostgreSQL
 - **Reconexão resiliente** (versão PostgreSQL): função dedicada para lidar com o encerramento automático de conexões ociosas do plano gratuito do Neon
-- **Visualizações exploratórias** com Matplotlib (lúpulos mais usados, IBU médio por faixa de ABV), geradas a partir das próprias queries analíticas
+- **Visualizações exploratórias** com Matplotlib (lúpulos mais usados, IBU médio por faixa de ABV), geradas a partir das próprias queries analíticas. Os gráficos de análise dos dados são gerados nos notebooks Jupyter. A API disponibiliza consultas e resultados em formato de resposta HTTP, mas não possui uma interface própria para exibição de gráficos.
 
 ## Como rodar
 
@@ -86,10 +87,6 @@ Depois abra `http://127.0.0.1:8000/docs` para testar os endpoints pela interface
 - A API roda no plano gratuito do Render, que "dorme" após um período sem uso; a primeira requisição pode levar cerca de um minuto para responder.
 - Os notebooks foram projetados para execução única e sequencial, do início ao fim (Kernel → Restart & Run All). Não são idempotentes: re-executar isoladamente certas células (ex: inserção de dados de teste) pode falhar por depender de estado criado anteriormente na mesma sessão.
 - A versão PostgreSQL depende de um banco Neon no plano gratuito, que entra em modo de espera (scale to zero) após período de inatividade — a primeira consulta após um tempo parado pode demorar alguns segundos a mais.
-
-## Próximos passos
-
-- **API de serving** com FastAPI, expondo consultas do banco (ex: busca por estilo, ranking de amargor) como endpoint público, publicada no Render
 - Camada de visualização/BI mais completa sobre os dados já modelados
 
 ## Autor

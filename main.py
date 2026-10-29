@@ -6,7 +6,7 @@ from dotenv import load_dotenv
  
 load_dotenv()  # lê o .env localmente
 
-app = FastAPI(title="API para Análise de Dados Cervejeiros", description="Consulta o banco de dados construído a partir de receitas da Punk API/DIY Dog")
+app = FastAPI(title="BrewInspector", description="API para consulta e análise de dados de receitas cervejeiras do catálogo Punk API / DIY Dog.")
 
 def get_conn():
     url = os.getenv("DATABASE_URL")
