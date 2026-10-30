@@ -6,7 +6,7 @@ from dotenv import load_dotenv
  
 load_dotenv()  # lê o .env localmente
 
-app = FastAPI(title="BrewInspector", description="API para consulta e análise de dados de receitas cervejeiras do catálogo Punk API / DIY Dog.")
+app = FastAPI(title="🍺📋 BrewInspector - API", description="API REST para consulta de dados de receitas cervejeiras do catálogo DIY Dog da cervejaria escocesa BrewDog.")
 
 def get_conn():
     url = os.getenv("DATABASE_URL")
@@ -34,6 +34,38 @@ def status():
     except Exception as e:
         raise HTTPException(status_code=503, detail=f"Banco indisponivel {e}")
 
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+@app.get("/cervejas/busca")
+def pesquisar_por_nome(
+    nome: str = Query(..., min_length=1, description="Nome ou parte do nome da cerveja"),
+    limite: int = Query(20, ge=1, le=100, description="Quantidade máxima de resultados")
+):
+    """Pesquisa cervejas pelo nome, aceitando correspondências parciais."""
+
+    conn = get_conn()
+    cur = conn.cursor()
+
+    try:
+        cur.execute(
+            """
+            SELECT *
+            FROM tab_cervejas
+            WHERE nome ILIKE %s
+            ORDER BY nome
+            LIMIT %s;
+            """,
+            (f"%{nome}%", limite)
+        )
+
+        resultados = cur.fetchall()
+        return resultados
+
+    finally:
+        cur.close()
+        conn.close()
+
 #-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 @app.get("/cervejas/{cerveja_id}")
@@ -48,6 +80,8 @@ def pesquisar_por_ID(cerveja_id: int):
     if resultado is None:
         raise HTTPException(status_code=404, detail="Cerveja nao encontrada")
     return resultado
+
+#-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 from enum import Enum
 class Ordem(str, Enum):
