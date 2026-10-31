@@ -43,6 +43,7 @@ Durante a análise, dois tipos de valor atípico foram encontrados e tratados de
 
 - **Modelagem relacional** com chaves estrangeiras e tabelas de dimensão/fato.
 - **Window functions** (`ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ...)`) para ranking de cervejas mais amargas por faixa de temperatura de fermentação.
+- **Agregação e construção de resultados JSON**: uso de `JSON_AGG`, `JSON_BUILD_OBJECT` e `COALESCE` para retornar ingredientes e harmonizações associados a cada cerveja em estruturas JSON; uso de `STRING_AGG` para agrupar nomes de ingredientes encontrados nas pesquisas.
 - **Índices e plano de execução**: comparação documentada de varredura completa vs. busca direta via índice, antes e depois de criar índice (`EXPLAIN QUERY PLAN` na versão SQLite; `EXPLAIN ANALYZE`, com tempo real de execução, na versão PostgreSQL).
 - **Transações com SAVEPOINT**: inserção em lote com checkpoint intermediário. Se um lote falha (ex.: violação de chave primária duplicada), apenas aquele lote é revertido, sem perder lotes anteriores já confirmados; registros perdidos são automaticamente reprocessados individualmente.
 - **Função customizada reutilizável dentro do SQL**: registrada em Python (`conn.create_function`) na versão SQLite; implementada como função nativa `PL/pgSQL` (`CREATE OR REPLACE FUNCTION`) na versão PostgreSQL.
@@ -85,8 +86,12 @@ A API REST está publicada no Render e disponibiliza os dados do banco PostgreSQ
 
 O arquivo `main.py` implementa os seguintes endpoints:
 
-- `/cervejas/busca` — pesquisa cervejas por nome ou trecho do nome.
-- `/cervejas/{id}` — dados de uma cerveja.
+- `/cervejas/nome` — pesquisa cervejas por nome ou trecho do nome.
+- `/cervejas/descricao` — pesquisa cervejas por palavras ou trechos presentes na descrição.
+- `/cervejas/lupulo` — pesquisa cervejas que utilizam determinado lúpulo.
+- `/cervejas/malte` — pesquisa cervejas que utilizam determinado malte.
+- `/cervejas/harmonizacao` — pesquisa cervejas recomendadas para harmonizar com determinado prato.
+- `/cerveja_id/{cerveja_id}` — retorna os dados completos de uma cerveja específica pelo ID, incluindo lúpulos, maltes e harmonizações.
 - `/teor_alcool` — ranking por teor alcoólico.
 - `/teor_amargor` — ranking por IBU (técnico ou percebido).
 - `/lupulos` — lúpulos mais/menos usados.
