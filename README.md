@@ -81,7 +81,7 @@ Acesse `http://localhost:8501` no navegador.
 
 A API REST está publicada no Render e disponibiliza os dados do banco PostgreSQL por meio de endpoints com parâmetros de ordenação, quantidade de resultados e filtros.
 
-[**Acessar documentação interativa da API (Swagger)**](https://brewinspector-api.onrender.com/docs)
+[**Acessar a API REST (Swagger UI)**](https://brewinspector-api.onrender.com/docs)
 
 O arquivo `main.py` implementa os seguintes endpoints:
 
