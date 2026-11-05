@@ -313,7 +313,7 @@ paletas_lupulos = {
 }
 
 paletas_maltes = {
-    "Amarelo dourado": "Wistia",
+    "Amarelo dourado": "autumn",
     "Preto e branco": "Greys",
     "Cobre": "copper",
     "Arco-íris": "rainbow",
@@ -385,6 +385,9 @@ def gerar_cores(valores, nome_paleta):
     elif nome_paleta == "PiYG":
         normalizados = 0.15 + normalizados * 0.70 # limita a escala aos 15%–85%, evitando que a barra intermediária fique praticamente branca
         normalizados = 1 - normalizados
+
+    elif nome_paleta == "autumn":
+            normalizados = 0.8
 
     return cmap(normalizados)
 
